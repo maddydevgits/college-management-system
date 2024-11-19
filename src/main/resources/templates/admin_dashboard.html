@@ -17,6 +17,14 @@
     </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Admin Dashboard</a>
+            <div class="d-flex">
+                <a href="/logout" class="btn btn-outline-light">Logout</a>
+            </div>
+        </div>
+    </nav>
     <div class="container mt-5">
         <h1 class="display-4 fw-bold text-center text-white mb-4">Admin Dashboard</h1>
         <p class="text-center text-light fs-5">Manage user accounts, view system reports, and oversee college activities.</p>
@@ -26,8 +34,8 @@
                 <!-- Card 1: Employee Details -->
                 <div class="col">
                     <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg">
-                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Professors Details</h3>
+                        <div class="d-flex flex-column h-100 p-4 text-white text-shadow-1"> <!-- Reduced padding -->
+                            <h3 class="mb-4 display-6 lh-1 fw-bold">Professors Details</h3> <!-- Removed pt-5 and mt-5 -->
                             <p>Manage and edit Professors accounts, roles, and permissions.</p>
                             <a href="/employeedetails" class="btn btn-outline-light mt-auto">View Professors Details</a>
                         </div>
@@ -37,8 +45,8 @@
                 <!-- Card 2: Staff Details -->
                 <div class="col">
                     <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg">
-                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Staff Details</h3>
+                        <div class="d-flex flex-column h-100 p-4 text-white text-shadow-1">
+                            <h3 class="mb-4 display-6 lh-1 fw-bold">Staff Details</h3>
                             <p>View and manage staff details, including roles and permissions.</p>
                             <a href="/staffdetails" class="btn btn-outline-light mt-auto">View Staff Details</a>
                         </div>
@@ -48,8 +56,8 @@
                 <!-- Card 3: Student Details -->
                 <div class="col">
                     <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg">
-                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Student Details</h3>
+                        <div class="d-flex flex-column h-100 p-4 text-white text-shadow-1">
+                            <h3 class="mb-4 display-6 lh-1 fw-bold">Student Details</h3>
                             <p>Access student reports, attendance, and academic records.</p>
                             <a href="/studentdetails" class="btn btn-outline-light mt-auto">View Student Details</a>
                         </div>
@@ -59,8 +67,8 @@
                 <!-- Card 4: Register Staff -->
                 <div class="col">
                     <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg">
-                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Student Fee Details</h3>
+                        <div class="d-flex flex-column h-100 p-4 text-white text-shadow-1">
+                            <h3 class="mb-4 display-6 lh-1 fw-bold">Student Fee Details</h3>
                             <p>Register new staff members and assign roles.</p>
                             <a href="/registerstaff" class="btn btn-outline-light mt-auto">Fee Details</a>
                         </div>
@@ -70,8 +78,8 @@
                 <!-- Card 5: System Reports -->
                 <div class="col">
                     <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg">
-                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">System Reports</h3>
+                        <div class="d-flex flex-column h-100 p-4 text-white text-shadow-1">
+                            <h3 class="mb-4 display-6 lh-1 fw-bold">System Reports</h3>
                             <p>View analytics and system-wide reports for better oversight.</p>
                             <a href="/systemreports" class="btn btn-outline-light mt-auto">View System Reports</a>
                         </div>

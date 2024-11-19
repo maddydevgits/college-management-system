@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +16,17 @@
     </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/admin">Admin Dashboard</a>
+            
+            <div class="d-flex">
+                <a href="/employeedetails" class="btn btn-outline-light">Faculty Details</a> 
+                &nbsp; &nbsp;
+                <a href="/logout" class="btn btn-outline-light">Logout</a>
+            </div>
+        </div>
+    </nav>
     <div class="container mt-5">
         <h1 class="display-4 fw-bold text-center text-white mb-4">Register New Professor</h1>
         <p class="text-center text-light fs-5">Fill in the details below to register a new professor.</p>
@@ -24,7 +35,10 @@
             <div class="col-lg-6">
                 <div class="card shadow-lg p-4">
                     <div class="card-body">
-                        <form action="your-backend-endpoint" method="POST">
+                        <div th:if="${responseMessage}" class="alert alert-info" role="alert">
+                            <span th:text="${responseMessage}"></span>
+                        </div>
+                        <form action="/api/faculty/register" method="POST">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Professor Name</label>
                                 <input type="text" class="form-control" id="name" name="name" required>
@@ -51,11 +65,11 @@
                             </div>
                             <div class="mb-3">
                                 <label for="experience" class="form-label">Years of Working</label>
-                                <input type="number" class="form-control" id="experience" name="experience" required>
+                                <input type="number" class="form-control" id="yearsofWorking" name="yearsofWorking" required>
                             </div>
                             <div class="mb-3">
                                 <label for="joining_date" class="form-label">Date of Joining</label>
-                                <input type="date" class="form-control" id="joining_date" name="joining_date" required>
+                                <input type="date" class="form-control" id="doj" name="doj" required>
                             </div>
                             <div class="mb-3">
                                 <label for="salary" class="form-label">Salary</label>

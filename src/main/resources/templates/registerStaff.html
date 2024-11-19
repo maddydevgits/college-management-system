@@ -22,9 +22,12 @@
             <div class="col-lg-6">
                 <div class="card shadow-lg p-4">
                     <div class="card-body">
-                        <form action="your-backend-endpoint" method="POST">
+                        <div th:if="${responseMessage}" class="alert alert-info" role="alert">
+                            <span th:text="${responseMessage}"></span>
+                        </div>
+                        <form action="/api/staff/register" method="POST">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Staff Name</label>
+                                <label for="name" class="form-label">Professor Name</label>
                                 <input type="text" class="form-control" id="name" name="name" required>
                             </div>
                             <div class="mb-3">
@@ -36,28 +39,28 @@
                                 <input type="text" class="form-control" id="department" name="department" required>
                             </div>
                             <div class="mb-3">
-                                <label for="role" class="form-label">Role</label>
-                                <input type="text" class="form-control" id="role" name="role" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="experience" class="form-label">Years of Working</label>
-                                <input type="number" class="form-control" id="experience" name="experience" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="salary" class="form-label">Salary</label>
-                                <input type="number" class="form-control" id="salary" name="salary" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="joining_date" class="form-label">Date of Joining</label>
-                                <input type="date" class="form-control" id="joining_date" name="joining_date" required>
-                            </div>
-                            <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="email" name="email" required>
                             </div>
                             <div class="mb-3">
                                 <label for="mobile" class="form-label">Mobile No</label>
                                 <input type="tel" class="form-control" id="mobile" name="mobile" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="qualification" class="form-label">Highest Qualification</label>
+                                <input type="text" class="form-control" id="qualification" name="qualification" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="experience" class="form-label">Years of Working</label>
+                                <input type="number" class="form-control" id="yearsofWorking" name="yearsofWorking" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="joining_date" class="form-label">Date of Joining</label>
+                                <input type="date" class="form-control" id="doj" name="doj" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="salary" class="form-label">Salary</label>
+                                <input type="number" class="form-control" id="salary" name="salary" required>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
