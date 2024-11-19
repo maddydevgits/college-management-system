@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNi College - A Hub for Higher Education</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+
+<div class="container-fluid bg-light position-relative shadow">
+    <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
+        <a href="#" class="navbar-brand font-weight-bold text-secondary" style="font-size: 50px;">
+            <i class="flaticon-043-graduation-hat"></i>
+            <span class="text-primary">UNi College</span>
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+            <div class="navbar-nav font-weight-bold mx-auto py-0">
+                <a th:href="@{/}" class="nav-item nav-link active">Home</a>
+                <a th:href="@{/about}" class="nav-item nav-link">About Us</a>
+                <a th:href="@{/programs}" class="nav-item nav-link">Programs</a>
+                <a th:href="@{/admissions}" class="nav-item nav-link">Admissions</a>
+                <a th:href="@{/research}" class="nav-item nav-link">Research</a>
+                <a th:href="@{/contact}" class="nav-item nav-link">Contact</a>
+            </div>
+            <a th:href="@{/loginpage}" class="btn btn-primary px-4">Student Portal</a>
+        </div>
+    </nav>
+</div>
+
+<div class="container-fluid bg-primary px-0 px-md-5 mb-5">
+    <div class="row align-items-center px-3">
+        <div class="col-lg-6 text-center text-lg-left">
+            <h4 class="text-white mb-4 mt-5 mt-lg-0">Welcome to UNi College</h4>
+            <h1 class="display-3 font-weight-bold text-white">Empowering Future Leaders</h1>
+            <p class="text-white mb-4">At UNi College, we are committed to providing quality education, fostering innovation, and developing critical thinking in our students. Join us to become part of a vibrant community dedicated to academic excellence and career success.</p>
+            <a th:href="@{/loginpage}" class="btn btn-secondary mt-1 py-3 px-5">Login</a>
+        </div>
+        <div class="col-lg-6 text-center text-lg-right">
+			<img class="img-fluid mt-5" th:src="@{src/main/resources/static/img/header.PNG}" alt="University Campus">
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

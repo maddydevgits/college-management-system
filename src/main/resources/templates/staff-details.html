@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Details - UNi College Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: linear-gradient(0deg, #007bff 0%, #97D9E1 100%);
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="display-4 fw-bold text-center text-white mb-4">Staff Details</h1>
+        <p class="text-center text-light fs-5">Details of all staff members in the system.</p>
+
+        <!-- Button to Register New Staff -->
+        <div class="text-center mb-4">
+            <a href="./staff_register.html" class="btn btn-success">Register New Staff Member</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover text-light">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Staff Name</th>
+                        <th>Age</th>
+                        <th>Department</th>
+                        <th>Role</th>
+                        <th>Years of Working</th>
+                        <th>Salary</th>
+                        <th>Date of Joining</th>
+                        <th>Email</th>
+                        <th>Mobile No</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sample row for demonstration -->
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>35</td>
+                        <td>Administration</td>
+                        <td>Manager</td>
+                        <td>10</td>
+                        <td>$50,000</td>
+                        <td>2015-03-10</td>
+                        <td>janesmith@example.com</td>
+                        <td>0987654321</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm me-2" onclick="updateStaff()">Update</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteStaff()">Delete</button>
+                        </td>
+                    </tr>
+                    <!-- Additional rows can be dynamically generated here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="./admin_dashboard.html" class="btn btn-light">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script>
+        function updateStaff() {
+            alert("Update functionality is not yet implemented.");
+        }
+
+        function deleteStaff() {
+            alert("Delete functionality is not yet implemented.");
+        }
+    </script>
+</body>
+</html>
