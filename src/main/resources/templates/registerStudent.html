@@ -14,6 +14,17 @@
     </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/admin">Admin Dashboard</a>
+            
+            <div class="d-flex">
+                <a href="/studentdetails" class="btn btn-outline-light">Student Member Details</a> 
+                &nbsp; &nbsp;
+                <a href="/logout" class="btn btn-outline-light">Logout</a>
+            </div>
+        </div>
+    </nav>
     <div class="container mt-5">
         <h1 class="display-4 fw-bold text-center text-white mb-4">Register New Student</h1>
         <p class="text-center text-light fs-5">Fill in the details below to register a new student.</p>
@@ -22,7 +33,7 @@
             <div class="col-lg-6">
                 <div class="card shadow-lg p-4">
                     <div class="card-body">
-                        <form action="your-backend-endpoint" method="POST">
+                        <form id="studentForm">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
                                 <input type="text" class="form-control" id="name" name="name" required>
@@ -37,56 +48,24 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="age" class="form-label">Age</label>
-                                <input type="number" class="form-control" id="age" name="age" required>
-                            </div>
-                            <div class="mb-3">
                                 <label for="father_name" class="form-label">Father's Name</label>
-                                <input type="text" class="form-control" id="father_name" name="father_name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="mother_name" class="form-label">Mother's Name</label>
-                                <input type="text" class="form-control" id="mother_name" name="mother_name" required>
+                                <input type="text" class="form-control" id="fatherName" name="fatherName" required>
                             </div>
                             <div class="mb-3">
                                 <label for="roll_number" class="form-label">Roll Number</label>
-                                <input type="text" class="form-control" id="roll_number" name="roll_number" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="course" class="form-label">Course</label>
-                                <input type="text" class="form-control" id="course" name="course" required>
+                                <input type="text" class="form-control" id="rollNumber" name="rollNumber" required>
                             </div>
                             <div class="mb-3">
                                 <label for="branch" class="form-label">Branch</label>
                                 <input type="text" class="form-control" id="branch" name="branch" required>
                             </div>
                             <div class="mb-3">
-                                <label for="joining_year" class="form-label">Date of Joining</label>
-                                <input type="date" class="form-control" id="joining_year" name="joining_year" required>
-                            </div>
-                            <div class="mb-3">
                                 <label for="studying_year" class="form-label">Year of Studying</label>
-                                <input type="number" class="form-control" id="studying_year" name="studying_year" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="semester" class="form-label">Semester</label>
-                                <input type="number" class="form-control" id="semester" name="semester" required>
+                                <input type="number" class="form-control" id="studyingYear" name="studyingYear" required>
                             </div>
                             <div class="mb-3">
                                 <label for="father_mobile" class="form-label">Father's Mobile Number</label>
-                                <input type="tel" class="form-control" id="father_mobile" name="father_mobile" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="attendance" class="form-label">Attendance (%)</label>
-                                <input type="number" class="form-control" id="attendance" name="attendance" min="0" max="100" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="cgpa" class="form-label">CGPA</label>
-                                <input type="number" step="0.01" class="form-control" id="cgpa" name="cgpa" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="passing_year" class="form-label">Year of Passing</label>
-                                <input type="number" class="form-control" id="passing_year" name="passing_year">
+                                <input type="tel" class="form-control" id="fatherMobile" name="fatherMobile" required>
                             </div>
                             <div class="mb-3">
                                 <label for="mobile" class="form-label">Mobile Number</label>
@@ -101,13 +80,35 @@
                                 <input type="password" class="form-control" id="password" name="password" required>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <button type="submit" class="btn btn-primary">Register</button>
+                                <button type="button" class="btn btn-primary" onclick="registerStudent()">Register</button>
                             </div>
-                        </form>
+                        </form>                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        async function registerStudent() {
+            const formData = new FormData(document.getElementById('studentForm'));
+            const jsonData = Object.fromEntries(formData.entries());
+    
+            try {
+                const response = await fetch('/api/student/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(jsonData),
+                });
+    
+                const message = await response.text();
+                alert(message);
+                window.location.reload();
+            } catch (error) {
+                alert('Error registering student: ' + error.message);
+            }
+        }
+    </script>
 </body>
 </html>

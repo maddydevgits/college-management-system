@@ -1,53 +1,221 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNi College - A Hub for Higher Education</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" th:href="@{/styles.css}">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Website</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
-<div class="container-fluid bg-light position-relative shadow">
-    <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
-        <a href="#" class="navbar-brand font-weight-bold text-secondary" style="font-size: 50px;">
-            <i class="flaticon-043-graduation-hat"></i>
-            <span class="text-primary">UNi College</span>
-        </a>
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-            <div class="navbar-nav font-weight-bold mx-auto py-0">
-                <a th:href="@{/}" class="nav-item nav-link active">Home</a>
-                <a th:href="@{/about}" class="nav-item nav-link">About Us</a>
-                <a th:href="@{/programs}" class="nav-item nav-link">Programs</a>
-                <a th:href="@{/admissions}" class="nav-item nav-link">Admissions</a>
-                <a th:href="@{/research}" class="nav-item nav-link">Research</a>
-                <a th:href="@{/contact}" class="nav-item nav-link">Contact</a>
-            </div>
-            <a th:href="@{/login}" class="btn btn-primary px-4">Portal</a>
+    <!-- Navbar -->
+    <nav class="navbar" style="text-align: left;">
+        <div class="container" style="display: flex; justify-content: flex-start; align-items: center;">
+            <a class="navbar-brand" href="https://mir-s3-cdn-cf.behance.net/projects/404/cf181f98971185.Y3JvcCw0NzEsMzY5LDM3MSwzNg.jpg" target="_blank">
+                <img src="https://mir-s3-cdn-cf.behance.net/projects/404/cf181f98971185.Y3JvcCw0NzEsMzY5LDM3MSwzNg.jpg" alt="Logo" style="height: 40px;">
+            </a>
+            <ul class="navbar-nav" style="list-style: none; display: flex; margin-left: 20px;">
+                <li style="margin-right: 20px;"><a class="nav-link" href="#about-us">About</a></li>
+                <li style="margin-right: 20px;"><a class="nav-link" href="#programs">Programs</a></li>
+                <!-- <li style="margin-right: 20px;"><a class="nav-link" href="#admissions">Admissions</a></li> -->
+                <li style="margin-right: 20px;"><a class="nav-link" href="#research">Research</a></li>
+                <li><a class="nav-link" href="#contact">Contact</a></li>
+                <li><a class="nav-link" href="/login">Login</a></li>
+            </ul>
         </div>
     </nav>
-</div>
+    
 
-<div class="container-fluid bg-primary px-0 px-md-5 mb-5">
-    <div class="row align-items-center px-3">
-        <div class="col-lg-6 text-center text-lg-left">
-            <h4 class="text-white mb-4 mt-5 mt-lg-0">Welcome to UNi College</h4>
-            <h1 class="display-3 font-weight-bold text-white">Empowering Future Leaders</h1>
-            <p class="text-white mb-4">At UNi College, we are committed to providing quality education, fostering innovation, and developing critical thinking in our students. Join us to become part of a vibrant community dedicated to academic excellence and career success.</p>
-            <a th:href="@{/login}" class="btn btn-secondary mt-1 py-3 px-5">Login</a>
-        </div>
-        <div class="col-lg-6 text-center text-lg-right">
-			<img class="img-fluid mt-5" th:src="@{img/header.PNG}" alt="University Campus">
-        </div>
-    </div>
-</div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1>Welcome to Our Website</h1>
+        <p>Your journey to success starts here</p>
+        <a href="#about-us" class="btn">Learn More</a>
+    </section>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- About Section -->
+    <section id="about-us">
+        <h2>About Us</h2>
+        <div class="cards">
+            <div class="card">
+                <div class="card-body">
+                    <i class="icon"></i>
+                    <h5>Best Teachers</h5>
+                    <p>Our team of qualified and experienced teachers provide personalized guidance, ensuring that every student receives the attention they need to succeed.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <i class="icon"></i>
+                    <h5>Best Students</h5>
+                    <p>Our students excel in their studies and consistently achieve top grades, thanks to a supportive and collaborative learning environment.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <i class="icon"></i>
+                    <h5>Online Meeting</h5>
+                    <p>Our interactive online meetings help bridge the gap between students and teachers, offering a flexible and engaging learning experience from anywhere.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" style="position: relative; overflow: hidden;">
+        <div class="container">
+            <h1 style="text-align: center;">Our Popular Courses</h1><br><br>
+            <div class="course-cards">
+                <div class="course-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgrk5C06MYwRwt47xl0nnHiXJOIbU7auYc9g&s" alt="CSE">
+                    <h5>Computer Science Engineering (CSE)</h5>
+                    <p>Focuses on programming, algorithms, data structures, and software engineering.</p>
+                </div>
+                <div class="course-card">
+                    <img src="https://eecsnews.engin.umich.edu/wp-content/uploads/sites/2/2018/12/data-science-header-featured-1.jpg" alt="ECE">
+                    <h5>Electronics & Communication Engineering (ECE)</h5>
+                    <p>Deals with the design and development of electronic systems and circuits.</p>
+                </div>
+                <div class="course-card">
+                    <img src="https://images.wondershare.com/mockitt/ux-beginner/mechanical-engineering.jpeg" alt="MECH">
+                    <h5>Mechanical Engineering (MECH)</h5>
+                    <p>Focuses on the design, analysis, and manufacturing of mechanical systems.</p>
+                </div>
+                <div class="course-card">
+                    <img src="https://i.pinimg.com/originals/69/5e/a4/695ea4e95f772fca77bba73dc3bf2ac3.jpg" alt="Civil">
+                    <h5>Civil Engineering</h5>
+                    <p>Involves designing and constructing infrastructure like roads and buildings.</p>
+                </div>
+            
+                <div class="course-card">
+                    <img src="https://erode-sengunthar.ac.in/wp-content/uploads/2024/02/aiml-image-1.png" alt="AIML">
+                    <h5>Artificial Intelligence & Machine Learning (AIML)</h5>
+                    <p>Focuses on building algorithms and models for intelligent decision-making.</p>
+                </div>
+                <div class="course-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJhM79zEk7MgmyZeTbS9T2kvw0tcoOIM1lpg&s" alt="EEE">
+                    <h5>Electrical & Electronics Engineering (EEE)</h5>
+                    <p>Studies electrical systems, circuits, and electronics for power generation.</p>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Background video -->
+        <video autoplay muted loop id="background-video" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
+            <source src="\static\css\background.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+    
+    
+ <!-- Admissions Section -->
+    <!-- <section id="admissions">
+        <div class="container">
+            <h2 style="text-align: center;">Admissions</h2><br><br>
+            <div class="admission-steps">
+                <div class="step">
+                    <i class="icon"></i>
+                    <h5>Fill Out Application Form</h5>
+                    <p>Start your admission process by completing the application form with your personal and academic details.</p>
+                </div>
+                <div class="step">
+                    <i class="icon"></i>
+                    <h5>Submit Required Documents</h5>
+                    <p>Upload the necessary documents, including your previous academic records and any identification papers.</p>
+                </div>
+                <div class="step">
+                    <i class="icon"></i>
+                    <h5>Attend Interview</h5>
+                    <p>After your application is reviewed, you’ll be invited for a personal interview to further discuss your eligibility.</p>
+                </div>
+            </div>
+            <div class="admission-form">
+                <h3>Apply Now</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="course">Select Course</label>
+                        <select id="course" required>
+                            <option value="cse">Computer Science</option>
+                            <option value="ece">Electronics and Communication</option>
+                            <option value="mech">Mechanical Engineering</option>
+                            <option value="civil">Civil Engineering</option>
+                            <option value="ds">Data Science</option>
+                            <option value="aiml">AI & ML</option>
+                            <option value="eee">Electrical Engineering</option>
+                        </select>
+                    </div>
+                    <button type="submit">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Research Section -->
+    <section id="research" style="padding: 60px 20px; background-color: #f4f7f6;">
+        <div class="container" style="width: 90%; max-width: 1200px; margin: 0 auto;">
+            <h2 style="font-size: 36px; text-align: center; margin-bottom: 40px;">Research and Innovations</h2>
+            <div class="research-focus" style="display: flex; justify-content: space-between; gap: 30px; flex-wrap: wrap;">
+                <div class="focus" style="width: 30%; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5XOq4mHlpNYMyfvXyW-c1G5hfIqaEPkA6cYgp2EcCJVNLKXeYs2M98299Br3sdnvK-TY&usqp=CAU" alt="AI & ML Research" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;">
+                    <h5 style="font-size: 22px; margin-top: 15px;">AI & Machine Learning</h5>
+                    <p style="font-size: 16px; color: #555; margin-top: 10px;">Our AI & ML research focuses on creating intelligent systems that learn from data and make autonomous decisions.</p>
+                </div>
+                <div class="focus" style="width: 30%; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+                    <img src="https://t4.ftcdn.net/jpg/08/11/44/43/360_F_811444321_mVccgAxczXhjCkJtGV3kr2glTN8qQYSr.jpg" alt="Robotics Research" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;">
+                    <h5 style="font-size: 22px; margin-top: 15px;">Robotics</h5>
+                    <p style="font-size: 16px; color: #555; margin-top: 10px;">Our team of engineers is innovating in robotics, developing autonomous robots for industry and research applications.</p>
+                </div>
+                <div class="focus" style="width: 30%; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhMzjf8nN2e1E4AwhQKwi4eAwM1svgIczPFQ&s" alt="Renewable Energy Research" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;">
+                    <h5 style="font-size: 22px; margin-top: 15px;">Renewable Energy</h5>
+                    <p style="font-size: 16px; color: #555; margin-top: 10px;">Our research aims to create sustainable energy solutions with a focus on solar, wind, and alternative energy sources.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-form">
+            <h2>Get In Touch</h2>
+            <form>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5"></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Website. All Rights Reserved.</p>
+    </footer>
+
 </body>
 </html>

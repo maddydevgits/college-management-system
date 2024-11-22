@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-image: linear-gradient(0deg, #007bff 0%, #97D9E1 100%);
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 100vh;
+        }
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Student Dashboard</a>
+            <div class="d-flex">
+                <a href="/studentDashboard" class="btn btn-outline-light">Dashboard</a> &nbsp; &nbsp;
+                <a href="/viewProductsForStudent" class="btn btn-outline-light">View Products</a> &nbsp; &nbsp;
+                <a href="/logout" class="btn btn-outline-light">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <!-- Profile Section -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">Profile</div>
+                    <div class="card-body">
+                        <p><strong>Name:</strong> <span id="studentName">Loading...</span></p>
+                        <p><strong>Roll Number:</strong> <span id="studentRoll">Loading...</span></p>
+                        <p><strong>Email:</strong> <span id="studentEmail">Loading...</span></p>
+                        <p><strong>Mobile:</strong> <span id="studentMobile">Loading...</span></p>
+                        <button class="btn btn-primary btn-sm" onclick="openEditProfileModal()">Edit Profile</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Academic Section -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-success text-white">Academic Details</div>
+                    <div class="card-body">
+                        <p><strong>CGPA:</strong> <span id="studentCgpa1">Loading...</span></p>
+                        <p><strong>Attendance:</strong> <span id="studentAttendance">Loading...</span>%</p>
+                    </div>
+                </div>
+
+                <div class="container mt-5">
+                    <h2 class="text-center text-white">Your Study Materials</h2>
+                    <div class="row mt-4" id="materialsContainer">
+                        <!-- Material cards will be dynamically inserted here -->
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header bg-info text-white">Attendance History</div>
+                    <div class="card-body">
+                        <p><strong>Attendance Percentage:</strong> <span id="attendancePercentage">Loading...</span>%</p>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Posted By</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="attendanceHistory">
+                                    <!-- Attendance history will be dynamically inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-4">
+                    <div class="card-header bg-info text-white">Academic Details</div>
+                    <div class="card-body">
+                        <p><strong>Aggregate Percentage:</strong> <span id="studentAggregate">Loading...</span></p>
+                        <p><strong>CGPA:</strong> <span id="studentCgpa">Loading...</span></p>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header bg-info text-white">Results</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Subject</th>
+                                        <th>Marks</th>
+                                        <th>Semester</th>
+                                        <th>Year</th>
+                                        <th>Posted By</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="resultHistory">
+                                    <!-- Results will be dynamically inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-4">
+                    <div class="card-header bg-info text-white">Fee Details</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Fee Summary</h5> <br/>
+                        <p><strong>Total Fees:</strong> <span id="totalFees">Loading...</span></p>
+                        <p><strong>Paid Fees:</strong> <span id="paidFees">Loading...</span></p>
+                        <p><strong>Unpaid Fees:</strong> <span id="unpaidFees">Loading...</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProfileForm">
+                        <div class="mb-3">
+                            <label for="editEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editMobile" class="form-label">Mobile Number</label>
+                            <input type="tel" class="form-control" id="editMobile" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <br/>
+
+    <script>
+        // Fetch student data and populate the dashboard
+        async function fetchStudentDetails() {
+            try {
+                const response = await fetch('/api/student'); // Assuming the session determines the student
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch student details. Status: ${response.status}`);
+                }
+
+                const student = await response.json();
+
+                document.getElementById('studentName').textContent = student.name || 'N/A';
+                document.getElementById('studentRoll').textContent = student.rollNumber || 'N/A';
+                document.getElementById('studentEmail').textContent = student.email || 'N/A';
+                document.getElementById('studentMobile').textContent = student.mobile || 'N/A';
+                document.getElementById('studentCgpa').textContent = student.cgpa || 'N/A';
+                document.getElementById('studentAttendance').textContent = student.attendance || 'N/A';
+            } catch (error) {
+                console.error('Error fetching student details:', error);
+                alert('Failed to load student details. Please try again later.');
+            }
+        }
+
+        // Edit profile functionality
+        function openEditProfileModal() {
+            const modal = new bootstrap.Modal(document.getElementById('editProfileModal'));
+            modal.show();
+        }
+
+        document.getElementById('editProfileForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent form submission reload
+
+            // Extract values from the form
+            const email = document.getElementById('editEmail').value.trim();
+            const mobile = document.getElementById('editMobile').value.trim();
+
+            // Basic form validation
+            if (!email || !mobile) {
+                alert('Please fill out both email and mobile fields.');
+                return;
+            }
+
+            try {
+                // Make the PUT request to update the student profile
+                const response = await fetch('/api/student', { // Adjust endpoint if session determines student
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, mobile }),
+                });
+
+                if (response.ok) {
+                    alert('Profile updated successfully!');
+                    window.location.reload(); // Reload the page to reflect changes
+                } else {
+                    // Provide feedback based on response status
+                    const errorText = await response.text();
+                    alert(`Failed to update profile. Server says: ${errorText}`);
+                }
+            } catch (error) {
+                console.error('Error updating profile:', error);
+                alert('An unexpected error occurred. Please try again later.');
+            }
+        });
+
+        // Logout functionality
+        function logout() {
+            alert('Logging out...');
+            window.location.href = '/logout';
+        }
+
+        // Fetch details on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchStudentDetails();
+            fetchNotifications();
+        });
+    </script>
+    <script>
+        async function fetchAttendanceHistory() {
+            try {
+                const response = await fetch(`/api/attendance/student`);
+                if (!response.ok) throw new Error('Failed to fetch attendance history.');
+
+                const data = await response.json();
+                const attendanceRecords = data.attendanceRecords;
+                const attendancePercentage = data.attendancePercentage.toFixed(2);
+
+                // Update attendance percentage
+                document.getElementById('attendancePercentage').textContent = attendancePercentage;
+                document.getElementById('studentAttendance').textContent = attendancePercentage;
+
+                // Populate attendance history
+                const tableBody = document.getElementById('attendanceHistory');
+                tableBody.innerHTML = ''; // Clear existing rows
+
+                attendanceRecords.forEach(record => {
+                    const row = `
+                        <tr>
+                            <td>${record.date}</td>
+                            <td>${record.present ? 'Present' : 'Absent'}</td>
+                            <td>${record.postedBy}</td>
+                        </tr>
+                    `;
+                    tableBody.insertAdjacentHTML('beforeend', row);
+                });
+            } catch (error) {
+                console.error('Error fetching attendance history:', error);
+                document.getElementById('attendancePercentage').textContent = 'N/A';
+                document.getElementById('attendanceHistory').innerHTML = '<tr><td colspan="3">No attendance history available.</td></tr>';
+            }
+        }
+
+        // Fetch attendance history on page load
+        document.addEventListener('DOMContentLoaded', fetchAttendanceHistory);
+    </script>
+    <script>
+        async function fetchStudentResults() {
+            try {
+                const response = await fetch('/api/results/student');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch results.');
+                }
+
+                const data = await response.json();
+                const results = data.results;
+                const cgpa = data.cgpa;
+                const aggregatePercentage = data.aggregatePercentage.toFixed(2);
+
+                // Update CGPA and aggregate percentage in the dashboard
+                document.getElementById('studentCgpa').textContent = cgpa;
+                document.getElementById('studentCgpa1').textContent = cgpa;
+                document.getElementById('studentAggregate').textContent = `${aggregatePercentage}%`;
+
+                // Populate the results table
+                const tableBody = document.getElementById('resultHistory');
+                tableBody.innerHTML = ''; // Clear any existing rows
+
+                results.forEach(result => {
+                    const row = `
+                        <tr>
+                            <td>${result.subjectName}</td>
+                            <td>${result.marks}</td>
+                            <td>${result.semester}</td>
+                            <td>${result.year}</td>
+                            <td>${result.postedBy}</td>
+                        </tr>
+                    `;
+                    tableBody.insertAdjacentHTML('beforeend', row);
+                });
+            } catch (error) {
+                console.error('Error fetching results:', error);
+                document.getElementById('resultHistory').innerHTML = '<tr><td colspan="5">No results found.</td></tr>';
+                document.getElementById('studentCgpa').textContent = 'N/A';
+                document.getElementById('studentAggregate').textContent = 'N/A';
+            }
+        }
+
+        // Fetch results on page load
+        document.addEventListener('DOMContentLoaded', fetchStudentResults);
+    </script>
+    <script>
+        async function fetchStudentMaterials() {
+            try {
+                // Step 1: Fetch the student's branch and year
+                const studentResponse = await fetch('/api/student/details');
+                if (!studentResponse.ok) throw new Error('Failed to fetch student details.');
+
+                const { branch, year } = await studentResponse.json();
+
+                // Step 2: Fetch materials based on branch and year
+                const materialsResponse = await fetch(`/api/materials/student-materials?branch=${branch}&year=${year}`);
+                if (!materialsResponse.ok) throw new Error('No materials found for your branch and year.');
+
+                const materials = await materialsResponse.json();
+
+                // Step 3: Populate the materials in the dashboard
+                const materialsContainer = document.getElementById('materialsContainer');
+                materialsContainer.innerHTML = ''; // Clear previous content
+
+                materials.forEach(material => {
+                    const card = `
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">${material.materialName}</h5>
+                                    <p class="card-text">Branch: ${material.branch} | Year: ${material.year}</p>
+                                    <a href="${material.googleDriveLink}" target="_blank" class="btn btn-primary">View Material</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    materialsContainer.insertAdjacentHTML('beforeend', card);
+                });
+            } catch (error) {
+                console.error('Error fetching materials:', error);
+                document.getElementById('materialsContainer').innerHTML = `
+                    <p class="text-center text-danger">Failed to load materials. Please try again later.</p>
+                `;
+            }
+        }
+
+        // Fetch materials on page load
+        document.addEventListener('DOMContentLoaded', fetchStudentMaterials);
+    </script>
+    <script>
+        async function fetchFeeDetails() {
+            try {
+                const response = await fetch('/api/fees/student-fee');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch fee details.');
+                }
+
+                const feeDetails = await response.json();
+
+                // Update the fee details in the dashboard
+                document.getElementById('totalFees').textContent = feeDetails.totalFees.toFixed(2);
+                document.getElementById('paidFees').textContent = feeDetails.paidFees.toFixed(2);
+                document.getElementById('unpaidFees').textContent = feeDetails.unpaidFees.toFixed(2);
+            } catch (error) {
+                console.error('Error fetching fee details:', error);
+                document.getElementById('totalFees').textContent = 'N/A';
+                document.getElementById('paidFees').textContent = 'N/A';
+                document.getElementById('unpaidFees').textContent = 'N/A';
+                alert('Failed to load fee details. Please try again later.');
+            }
+        }
+
+        // Fetch fee details on page load
+        document.addEventListener('DOMContentLoaded', fetchFeeDetails);
+    </script>
+</body>
+</html>

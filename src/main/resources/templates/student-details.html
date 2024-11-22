@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Details - UNi College Portal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap Bundle with Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         body {
             background-image: linear-gradient(0deg, #007bff 0%, #97D9E1 100%);
@@ -21,7 +23,7 @@
 
         <!-- Button to Register New Student -->
         <div class="text-center mb-4">
-            <a href="./student_register.html" class="btn btn-success">Register New Student</a>
+            <a href="/registerStudent" class="btn btn-success">Register New Student</a>
         </div>
 
         <div class="table-responsive">
@@ -31,46 +33,169 @@
                         <th>Student Name</th>
                         <th>Roll Number</th>
                         <th>Course</th>
-                        <th>Branch</th>
                         <th>Year</th>
-                        <th>Semester</th>
-                        <th>Attendance (%)</th>
-                        <th>CGPA</th>
                         <th>Contact</th>
                         <th>Email</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Sample row for demonstration -->
-                    <tr>
-                        <td>John Doe</td>
-                        <td>123456</td>
-                        <td>B.Tech</td>
-                        <td>Computer Science</td>
-                        <td>2nd Year</td>
-                        <td>3</td>
-                        <td>95%</td>
-                        <td>8.5</td>
-                        <td>1234567890</td>
-                        <td>johndoe@example.com</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm me-2" onclick="updateStudent()">Update</button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteStudent()">Delete</button>
-                        </td>
-                    </tr>
-                    <!-- Additional rows can be dynamically generated here -->
                 </tbody>
             </table>
         </div>
 
+        <div class="modal fade" id="updateStudentModal" tabindex="-1" aria-labelledby="updateStudentModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateStudentModalLabel">Update Student</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="updateStudentForm">
+                            <input type="hidden" id="updateStudentId">
+                            <div class="mb-3">
+                                <label for="updateStudentName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="updateStudentName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="updateStudentRollNumber" class="form-label">Roll Number</label>
+                                <input type="text" class="form-control" id="updateStudentRollNumber" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="updateStudentBranch" class="form-label">Branch</label>
+                                <input type="text" class="form-control" id="updateStudentBranch" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="updateStudentYear" class="form-label">Year</label>
+                                <input type="number" class="form-control" id="updateStudentYear" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="updateStudentMobile" class="form-label">Mobile Number</label>
+                                <input type="tel" class="form-control" id="updateStudentMobile" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="updateStudentEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="updateStudentEmail" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="text-center mt-4">
-            <a href="./admin_dashboard.html" class="btn btn-light">Back to Dashboard</a>
+            <a href="/admin" class="btn btn-light">Back to Dashboard</a>
         </div>
     </div>
 
     <script>
-        
+        // Function to fetch student data and populate the table
+        async function fetchStudents() {
+            try {
+                const response = await fetch('/api/student/all');
+                if (!response.ok) throw new Error('Failed to fetch student data.');
+
+                const students = await response.json();
+                const tableBody = document.querySelector('tbody');
+                tableBody.innerHTML = ''; // Clear existing rows
+
+                students.forEach(student => {
+                    const row = `
+                        <tr>
+                            <td>${student.name}</td>
+                            <td>${student.rollNumber}</td>
+                            <td>${student.branch}</td>
+                            <td>${student.studyingYear}</td>
+                            <td>${student.mobile}</td>
+                            <td>${student.email}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm me-2" onclick="openUpdateStudentModal(${student.id}, '${student.name}', '${student.rollNumber}', '${student.branch}', ${student.studyingYear}, '${student.mobile}', '${student.email}')">Update</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteStudent(${student.id})">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.insertAdjacentHTML('beforeend', row);
+                });
+            } catch (error) {
+                console.error('Error fetching students:', error);
+                alert('Error fetching student data: ' + error.message);
+            }
+        }
+        // Call fetchStudents on page load
+        document.addEventListener('DOMContentLoaded', fetchStudents);
+    </script>
+    <script>
+        // Function to open modal and populate student data
+        function openUpdateStudentModal(id, name, rollNumber, branch, studyingYear, mobile, email) {
+            document.getElementById('updateStudentId').value = id;
+            document.getElementById('updateStudentName').value = name;
+            document.getElementById('updateStudentRollNumber').value = rollNumber;
+            document.getElementById('updateStudentBranch').value = branch;
+            document.getElementById('updateStudentYear').value = studyingYear;
+            document.getElementById('updateStudentMobile').value = mobile;
+            document.getElementById('updateStudentEmail').value = email;
+
+            const modal = new bootstrap.Modal(document.getElementById('updateStudentModal'));
+            modal.show();
+        }
+        // Submit the form to update student details
+        document.getElementById('updateStudentForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+    
+            const studentId = document.getElementById('updateStudentId').value;
+            const updatedStudent = {
+                name: document.getElementById('updateStudentName').value,
+                rollNumber: document.getElementById('updateStudentRollNumber').value,
+                branch: document.getElementById('updateStudentBranch').value,
+                studyingYear: parseInt(document.getElementById('updateStudentYear').value, 10),
+                mobile: document.getElementById('updateStudentMobile').value,
+                email: document.getElementById('updateStudentEmail').value,
+            };
+    
+            try {
+                const response = await fetch(`/api/student/${studentId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedStudent),
+                });
+    
+                if (response.ok) {
+                    alert('Student details updated successfully!');
+                    window.location.reload(); // Reload the page to reflect changes
+                } else {
+                    alert('Failed to update student details.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error updating student details.');
+            }
+        });
+
+        async function deleteStudent(id) {
+            if (!confirm('Are you sure you want to delete this student?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/student/${id}`, {
+                    method: 'DELETE',
+                });
+
+                if (response.ok) {
+                    alert('Student deleted successfully!');
+                    fetchStudents(); // Refresh the table
+                } else {
+                    alert('Failed to delete student.');
+                }
+            } catch (error) {
+                console.error('Error deleting student:', error);
+                alert('Error deleting student: ' + error.message);
+            }
+        }
     </script>
 </body>
 </html>

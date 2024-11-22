@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Details - UNi College Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Bundle with Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-image: linear-gradient(0deg, #007bff 0%, #97D9E1 100%);
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="display-4 fw-bold text-center text-white mb-4">Store Team</h1>
+        <p class="text-center text-light fs-5">Details of all store members in the system.</p>
+
+        <!-- Button to Register New Staff -->
+        <div class="text-center mb-4">
+            <a href="/registerInventoryTeam" class="btn btn-success">Register New Member in Store</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover text-light">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Staff Name</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sample row for demonstration -->
+                    
+                    <!-- Additional rows can be dynamically generated here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="modal fade" id="updateFacultyModal" tabindex="-1" aria-labelledby="updateFacultyModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateFacultyModalLabel">Update Store Member</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="updateFacultyForm">
+                            <input type="hidden" id="updateFacultyId">
+                            <div class="mb-3">
+                                <label for="updateName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="updateName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="updateAge" class="form-label">Age</label>
+                                <input type="number" class="form-control" id="updateAge" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="updateEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="updateEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="updateMobile" class="form-label">Mobile No</label>
+                                <input type="tel" class="form-control" id="updateMobile" required>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="/admin" class="btn btn-light">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script>
+        function updateFaculty(id) {
+            // Fetch the faculty details to populate the form
+            fetch(`/api/store/${id}`)
+                .then(response => response.json())
+                .then(faculty => {
+                    // Populate the form fields in the modal
+                    document.getElementById('updateFacultyId').value = id;
+                    document.getElementById('updateName').value = faculty.name;
+                    document.getElementById('updateAge').value = faculty.age;
+                    document.getElementById('updateEmail').value = faculty.email;
+                    document.getElementById('updateMobile').value = faculty.mobile;
+
+                    // Show the modal
+                    const updateModal = new bootstrap.Modal(document.getElementById('updateFacultyModal'));
+                    updateModal.show();
+                })
+                .catch(error => console.error('Error fetching staff details:', error));
+        }
+
+        document.getElementById('updateFacultyForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Gather updated data from the form
+            const id = document.getElementById('updateFacultyId').value;
+            const updatedFaculty = {
+                name: document.getElementById('updateName').value,
+                age: document.getElementById('updateAge').value,
+                email: document.getElementById('updateEmail').value,
+                mobile: document.getElementById('updateMobile').value,
+            };
+
+            // Send the updated data to the backend
+            fetch(`/api/store/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedFaculty),
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to update team.');
+                    return response.text();
+                })
+                .then(message => {
+                    alert(message); // Show success message
+                    closeModal();
+                    fetchFaculty(); // Refresh the table
+                })
+                .catch(error => console.error('Error updating team:', error));
+        });
+
+        function closeModal() {
+            // Get the modal element
+            const modalElement = document.getElementById('updateFacultyModal');
+            
+            // Retrieve the Bootstrap modal instance
+            const updateModal = bootstrap.Modal.getInstance(modalElement);
+
+            if (updateModal) {
+                updateModal.hide(); // Close the modal
+            } else {
+                console.error('Modal instance not found.');
+            }
+        }
+
+        async function fetchFaculty() {
+            try {
+                console.log('hi');
+                // Call the API to get faculty data
+                const response = await fetch('/api/store/all');
+                if (!response.ok) throw new Error('Failed to fetch faculty data.');
+    
+                const facultyList = await response.json();
+    
+                // Get the table body element
+                const tableBody = document.querySelector('tbody');
+                tableBody.innerHTML = ''; // Clear existing rows
+    
+                // Populate the table with faculty data
+                facultyList.forEach(faculty => {
+                    const row = `
+                        <tr>
+                            <td>${faculty.name}</td>
+                            <td>${faculty.age}</td>
+                            <td>${faculty.email}</td>
+                            <td>${faculty.mobile}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm me-2" onclick="updateFaculty(${faculty.id})">Update</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteFaculty(${faculty.id})">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.insertAdjacentHTML('beforeend', row);
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    
+        // Delete faculty function
+        async function deleteFaculty(id) {
+            if (confirm('Are you sure you want to delete this store member?')) {
+                try {
+                    const response = await fetch(`/api/store/${id}`, { method: 'DELETE' });
+                    if (!response.ok) throw new Error('Failed to delete store member.');
+    
+                    alert('Team Member deleted successfully!');
+                    fetchFaculty(); // Refresh the table
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        }
+    
+        // Call fetchFaculty() when the page loads
+        document.addEventListener('DOMContentLoaded', fetchFaculty);
+    </script>
+</body>
+</html>

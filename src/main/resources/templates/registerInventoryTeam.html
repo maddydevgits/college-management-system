@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Inventory Team - CMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: linear-gradient(0deg, #007bff 0%, #97D9E1 100%);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/admin">Admin Dashboard</a>
+            
+            <div class="d-flex">
+                <a href="/registerInventory" class="btn btn-outline-light">Store Member Details</a> 
+                &nbsp; &nbsp;
+                <a href="/logout" class="btn btn-outline-light">Logout</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="display-4 fw-bold text-center text-white mb-4">Register New Inventory Member</h1>
+        <p class="text-center text-light fs-5">Fill in the details below to register a new team member.</p>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card shadow-lg p-4">
+                    <div class="card-body">
+                        <div th:if="${responseMessage}" class="alert alert-info" role="alert">
+                            <span th:text="${responseMessage}"></span>
+                        </div>
+                        <form action="/api/store/register" method="POST">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Member Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="age" class="form-label">Age</label>
+                                <input type="number" class="form-control" id="age" name="age" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="mobile" class="form-label">Mobile No</label>
+                                <input type="tel" class="form-control" id="mobile" name="mobile" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
